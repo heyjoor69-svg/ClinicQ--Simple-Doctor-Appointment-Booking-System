@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#173d35">
+  <title>Cliniq | Care operations</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#dashboard" aria-label="Cliniq dashboard">
+        <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span><span></span></span>
+        <span class="brand-name">cliniq<span>.</span></span>
+      </a>
+      <div class="workspace-label">WORKSPACE</div>
+      <nav class="primary-nav" aria-label="Main navigation">
+        <button class="nav-link active" data-view="dashboard" type="button"><span class="nav-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="11" width="7" height="10" rx="1.5"/><rect x="3" y="14" width="8" height="7" rx="1.5"/></svg></span>Overview</button>
+        <button class="nav-link" data-view="appointments" type="button"><span class="nav-icon"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18M8 14h3M8 17h6"/></svg></span>Appointments<span class="nav-count" id="nav-appointment-count">0</span></button>
+        <button class="nav-link" data-view="patients" type="button"><span class="nav-icon"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.4-3.6 2.7-5.5 6.5-5.5s6.1 1.9 6.5 5.5M16 5.2a3.5 3.5 0 0 1 0 6.7M17 14.7c2.6.5 4.1 2.3 4.5 5.3"/></svg></span>Patients</button>
+        <button class="nav-link" data-view="doctors" type="button"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M8 3v4M16 3v4M5 7h14v4a7 7 0 0 1-14 0V7ZM12 18v3M9 21h6"/><circle cx="12" cy="11" r="1"/></svg></span>Doctors</button>
+        <button class="nav-link" data-view="availability" type="button"><span class="nav-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg></span>Availability</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="connection-indicator"><span class="connection-dot"></span><span id="connection-label">Connecting to clinic</span></div>
+        <div class="sidebar-profile"><span class="profile-avatar">C</span><span><strong>Clinic workspace</strong><small>Care team</small></span><svg class="profile-more" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/></svg></div>
+      </div>
+    </aside>
+
+    <div class="main-column">
+      <header class="topbar">
+        <button class="mobile-menu icon-button" id="menu-toggle" type="button" aria-label="Open navigation"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+        <div class="breadcrumb"><span>Cliniq</span><span class="crumb-slash">/</span><strong id="breadcrumb-current">Overview</strong></div>
+        <div class="topbar-actions">
+          <span class="today-label" id="today-label"></span>
+          <button class="icon-button" id="refresh-button" type="button" aria-label="Refresh data" title="Refresh data"><svg viewBox="0 0 24 24"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M5.6 9A7 7 0 0 1 18 6l2 2M4 16l2 2a7 7 0 0 0 12.4-3"/></svg></button>
+          <button class="button button-dark top-book-button" data-action="book" type="button"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg><span>Book visit</span></button>
+        </div>
+      </header>
+
+      <main class="content-area">
+        <div class="toast-region" id="toast-region" aria-live="polite"></div>
+        <section class="page-panel active" id="panel-dashboard" aria-labelledby="dashboard-title">
+          <div class="page-heading dashboard-heading">
+            <div><p class="eyebrow" id="dashboard-date">MONDAY, SEPTEMBER 28</p><h1 id="dashboard-title">Good morning<span class="heading-period">.</span></h1><p class="page-subtitle">Here’s the care schedule at a glance.</p></div>
+            <button class="button button-primary" data-action="add-patient" type="button"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Add patient</button>
+          </div>
+          <div class="metric-grid">
+            <article class="metric metric-ink"><div class="metric-top"><span>Appointments today</span><span class="metric-glyph glyph-lime"><svg viewBox="0 0 24 24"><path d="M7 3v4M17 3v4M4 8h16M5 5h14a1 1 0 0 1 1 1v13H4V6a1 1 0 0 1 1-1Z"/></svg></span></div><strong id="stat-today">0</strong><small id="stat-today-note">Scheduled for today</small></article>
+            <article class="metric metric-white"><div class="metric-top"><span>Open time slots</span><span class="metric-glyph glyph-blue"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span></div><strong id="stat-open">0</strong><small>Ready to be booked</small></article>
+            <article class="metric metric-white"><div class="metric-top"><span>Doctors</span><span class="metric-glyph glyph-coral"><svg viewBox="0 0 24 24"><path d="M8 3v4M16 3v4M5 7h14v4a7 7 0 0 1-14 0V7ZM12 18v3M9 21h6"/></svg></span></div><strong id="stat-doctors">0</strong><small>On your care team</small></article>
+            <article class="metric metric-white"><div class="metric-top"><span>Patients</span><span class="metric-glyph glyph-yellow"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.4-3.6 2.7-5.5 6.5-5.5s6.1 1.9 6.5 5.5M17 8h5M19.5 5.5v5"/></svg></span></div><strong id="stat-patients">0</strong><small>In your clinic records</small></article>
+          </div>
+          <div class="dashboard-grid">
+            <section class="section-block agenda-block"><div class="section-heading"><div><p class="eyebrow">LIVE SCHEDULE</p><h2>Today’s appointments</h2></div><button class="text-button" data-nav="appointments" type="button">All appointments <span aria-hidden="true">&rarr;</span></button></div><div id="today-agenda" class="agenda-list"></div></section>
+            <aside class="section-block quick-block"><div class="section-heading"><div><p class="eyebrow">SHORTCUTS</p><h2>Quick actions</h2></div></div><div class="quick-actions"><button class="quick-action" data-action="book" type="button"><span class="quick-icon quick-green"><svg viewBox="0 0 24 24"><path d="M7 3v4M17 3v4M4 8h16M5 5h14a1 1 0 0 1 1 1v13H4V6a1 1 0 0 1 1-1ZM12 12v5M9.5 14.5h5"/></svg></span><span><strong>Book an appointment</strong><small>Find a time that works</small></span><b aria-hidden="true">&rarr;</b></button><button class="quick-action" data-action="add-doctor" type="button"><span class="quick-icon quick-coral"><svg viewBox="0 0 24 24"><path d="M8 3v4M16 3v4M5 7h14v4a7 7 0 0 1-14 0V7ZM12 18v3M9 21h6"/></svg></span><span><strong>Add a doctor</strong><small>Grow your care team</small></span><b aria-hidden="true">&rarr;</b></button><button class="quick-action" data-action="add-slot" type="button"><span class="quick-icon quick-blue"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M7 12h10"/></svg></span><span><strong>Publish availability</strong><small>Open a new appointment slot</small></span><b aria-hidden="true">&rarr;</b></button></div><div class="tip-strip"><span class="tip-star">+</span><span>Keep schedules current so patients can find the right time.</span></div></aside>
+          </div>
+          <section class="section-block recent-block"><div class="section-heading"><div><p class="eyebrow">LATEST ACTIVITY</p><h2>Recent appointments</h2></div><button class="text-button" data-nav="appointments" type="button">View schedule <span aria-hidden="true">&rarr;</span></button></div><div class="table-wrap"><table><thead><tr><th>Patient</th><th>Doctor</th><th>Date &amp; time</th><th>Status</th><th></th></tr></thead><tbody id="recent-appointments"></tbody></table></div></section>
+        </section>
+
+        <section class="page-panel" id="panel-appointments" aria-labelledby="appointments-title"><div class="page-heading"><div><p class="eyebrow">CARE COORDINATION</p><h1 id="appointments-title">Appointments<span class="heading-period">.</span></h1><p class="page-subtitle">Bookings, cancellations and what’s coming next.</p></div><button class="button button-primary" data-action="book" type="button"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Book appointment</button></div><div class="filter-row"><div class="segmented" role="group" aria-label="Filter appointments"><button class="segment active" data-appointment-filter="all" type="button">All <span id="count-all">0</span></button><button class="segment" data-appointment-filter="BOOKED" type="button">Booked <span id="count-booked">0</span></button><button class="segment" data-appointment-filter="CANCELLED" type="button">Cancelled <span id="count-cancelled">0</span></button></div><label class="search-field"><svg viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5"/></svg><input id="appointment-search" type="search" placeholder="Search patient or doctor" aria-label="Search appointments"></label></div><section class="section-block table-section"><div class="table-wrap"><table><thead><tr><th>Patient</th><th>Doctor</th><th>Date</th><th>Time</th><th>Status</th><th>Action</th></tr></thead><tbody id="appointments-table"></tbody></table></div></section></section>
+
+        <section class="page-panel" id="panel-patients" aria-labelledby="patients-title"><div class="page-heading"><div><p class="eyebrow">PATIENT RECORDS</p><h1>Patients<span class="heading-period">.</span></h1><p class="page-subtitle">A clear view of everyone in your clinic.</p></div><button class="button button-primary" data-action="add-patient" type="button"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Add patient</button></div><div class="directory-toolbar"><span class="result-label" id="patient-result-label">0 patients</span><label class="search-field"><svg viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5"/></svg><input id="patient-search" type="search" placeholder="Search patients" aria-label="Search patients"></label></div><div class="directory-grid" id="patients-grid"></div></section>
+
+        <section class="page-panel" id="panel-doctors" aria-labelledby="doctors-title"><div class="page-heading"><div><p class="eyebrow">YOUR CARE TEAM</p><h1>Doctors<span class="heading-period">.</span></h1><p class="page-subtitle">Manage clinicians and their appointment times.</p></div><button class="button button-primary" data-action="add-doctor" type="button"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Add doctor</button></div><div class="directory-toolbar"><span class="result-label" id="doctor-result-label">0 doctors</span><label class="search-field"><svg viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5"/></svg><input id="doctor-search" type="search" placeholder="Search doctors" aria-label="Search doctors"></label></div><div class="directory-grid" id="doctors-grid"></div></section>
+
+        <section class="page-panel" id="panel-availability" aria-labelledby="availability-title"><div class="page-heading"><div><p class="eyebrow">SCHEDULE MANAGEMENT</p><h1>Availability<span class="heading-period">.</span></h1><p class="page-subtitle">Publish time slots and see what’s still open.</p></div><button class="button button-primary" data-action="add-slot" type="button"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Add availability</button></div><div class="availability-controls"><label class="field-control"><span>Doctor</span><select id="availability-doctor"><option value="">All doctors</option></select></label><label class="field-control"><span>Date</span><input id="availability-date" type="date"></label><label class="availability-toggle"><input id="available-only" type="checkbox"><span class="toggle-track"></span><span>Available only</span></label></div><section class="section-block table-section"><div class="table-wrap"><table><thead><tr><th>Date</th><th>Time</th><th>Doctor</th><th>Availability</th><th></th></tr></thead><tbody id="slots-table"></tbody></table></div></section></section>
+
+        <footer class="app-footer"><span>Cliniq <span class="footer-dot">+</span> Care, in rhythm.</span><span id="footer-connection">Local clinic workspace</span></footer>
+      </main>
+    </div>
+  </div>
+  <div class="sidebar-scrim" id="sidebar-scrim"></div>
+
+  <dialog class="modal" id="doctor-modal"><form class="modal-card" id="doctor-form"><div class="modal-heading"><div><p class="eyebrow">CARE TEAM</p><h2>Add a doctor</h2></div><button class="icon-button modal-close" type="button" data-close-modal aria-label="Close"><svg viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></svg></button></div><label class="form-field"><span>Full name</span><input name="name" placeholder="Dr. Alex Morgan" required maxlength="100"></label><label class="form-field"><span>Specialization</span><input name="specialization" placeholder="Cardiology" required maxlength="100"></label><div class="form-grid"><label class="form-field"><span>Email</span><input name="email" type="email" placeholder="alex@clinic.com" required></label><label class="form-field"><span>Phone</span><input name="phone" type="tel" placeholder="555 010 2040" maxlength="20" required></label></div><div class="modal-actions"><button class="button button-quiet" type="button" data-close-modal>Cancel</button><button class="button button-primary" type="submit">Add doctor</button></div></form></dialog>
+
+  <dialog class="modal" id="patient-modal"><form class="modal-card" id="patient-form"><div class="modal-heading"><div><p class="eyebrow">PATIENT RECORDS</p><h2>Add a patient</h2></div><button class="icon-button modal-close" type="button" data-close-modal aria-label="Close"><svg viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></svg></button></div><label class="form-field"><span>Full name</span><input name="name" placeholder="Jamie Parker" required maxlength="100"></label><div class="form-grid"><label class="form-field"><span>Email</span><input name="email" type="email" placeholder="jamie@email.com" required></label><label class="form-field"><span>Phone</span><input name="phone" type="tel" placeholder="555 010 2040" maxlength="20" required></label></div><div class="modal-actions"><button class="button button-quiet" type="button" data-close-modal>Cancel</button><button class="button button-primary" type="submit">Add patient</button></div></form></dialog>
+
+  <dialog class="modal" id="slot-modal"><form class="modal-card" id="slot-form"><div class="modal-heading"><div><p class="eyebrow">SCHEDULE MANAGEMENT</p><h2>Publish availability</h2></div><button class="icon-button modal-close" type="button" data-close-modal aria-label="Close"><svg viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></svg></button></div><label class="form-field"><span>Doctor</span><select name="doctorId" required></select></label><label class="form-field"><span>Date</span><input name="slotDate" id="slot-date" type="date" required></label><div class="form-grid"><label class="form-field"><span>Starts at</span><input name="startTime" type="time" required></label><label class="form-field"><span>Ends at</span><input name="endTime" type="time" required></label></div><p class="form-note">Appointments use the clinic’s local time.</p><div class="modal-actions"><button class="button button-quiet" type="button" data-close-modal>Cancel</button><button class="button button-primary" type="submit">Publish slot</button></div></form></dialog>
+
+  <dialog class="modal" id="booking-modal"><form class="modal-card" id="booking-form"><div class="modal-heading"><div><p class="eyebrow">NEW BOOKING</p><h2>Book an appointment</h2></div><button class="icon-button modal-close" type="button" data-close-modal aria-label="Close"><svg viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></svg></button></div><label class="form-field"><span>Patient</span><select name="patientId" required></select></label><label class="form-field"><span>Doctor</span><select id="booking-doctor" required></select></label><label class="form-field"><span>Available time</span><select name="slotId" id="booking-slot" required><option value="">Choose a time</option></select></label><p class="form-note" id="booking-hint">Choose a doctor to see available times.</p><div class="modal-actions"><button class="button button-quiet" type="button" data-close-modal>Cancel</button><button class="button button-primary" type="submit">Confirm booking</button></div></form></dialog>
+
+  <dialog class="modal confirm-modal" id="confirm-modal"><form method="dialog" class="modal-card confirm-card"><div class="confirm-mark"><svg viewBox="0 0 24 24"><path d="M12 8v5M12 17h.01"/><circle cx="12" cy="12" r="9"/></svg></div><h2 id="confirm-title">Cancel appointment?</h2><p id="confirm-copy">The slot will become available for another patient.</p><div class="modal-actions"><button class="button button-quiet" value="cancel">Keep appointment</button><button class="button button-danger" id="confirm-accept" value="confirm">Cancel appointment</button></div></form></dialog>
+</body>
+</html>
